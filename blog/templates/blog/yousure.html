@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h1>are you sure you want to delete <b>{{remove.title}}</b></h1>
+<a href="{% url 'post_delete' pk=remove.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+
+<a href="{% url 'post_detail' pk=remove.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+
+{% endblock %}
