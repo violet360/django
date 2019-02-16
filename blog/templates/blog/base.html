@@ -8,13 +8,17 @@
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     </head>
     <body>
+
         <div class="page-header">
         	{% if user.is_authenticated %}
             <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-            <br><br>
+            <br>
             <a href = "{% url 'logout' %}">wanna logout? bitch!</a>
+            <h1><a href="{% url 'post_list' %}">Spark</a></h1>
             {% endif %}
-            <h1><a href="/">Spark</a></h1>
+            <br>
+            <a href="{% url 'welcome' %}">home</a>
+            
         </div>
         <div class="content container">
             <div class="row">

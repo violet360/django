@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+	{% if search %}
+	    <form method="POST" class="post-form">{% csrf_token %}
+	        {{ search.as_p }}
+	        <button type="submit" class="save btn btn-default">search</button>
+	    </form>
+    {% endif %}
+                                                                                        
+    {% if bool %}
+        {% for topic in d %}
+            <div class="post">
+                <div class="date">
+                    {{ topic.published_date }}
+                </div>
+                <h2><a href="{% url 'post_detail' pk=topic.pk %}">{{ topic.title }}</a></h2>
+                <p>{{ topic.text|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if bool is False %}
+        oops! there is no such user as "{{ text }}"
+    {% endif %}
+
+{% endblock %}

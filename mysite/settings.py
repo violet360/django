@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'users',
+    'search',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'post_list'
+
