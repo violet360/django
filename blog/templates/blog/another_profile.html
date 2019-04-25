@@ -1,24 +1,95 @@
 {% extends 'blog/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
 	{% if search %}
-	    <form method="POST" class="post-form">{% csrf_token %}
-	        {{ search.as_p }}
-	        <button type="submit" class="save btn btn-default">search</button>
+	    <form method="POST" class="post-form col-md-offset-4">{% csrf_token %}
+	        {{ search|crispy }}
 	    </form>
     {% endif %}
+
                                                                                         
     {% if bool %}
-        {% for topic in d %}
-            <div class="post">
-                <div class="date">
-                    {{ topic.published_date }}
-                </div>
-                <h2><a href="{% url 'post_detail' pk=topic.pk %}">{{ topic.title }}</a></h2>
-                <p>{{ topic.text|linebreaksbr }}</p>
-            </div>
-        {% endfor %}
+    <br>
+    <!-- profile image of other user -->
+    <img src="{{img_url}}" class="img-circle" alt="" width="200" height="200">
+    <br>
+    username : {{text}}
+    <br>
+    email: {{email}}
+    <br>
+        <div class="row">
+    
+    {% for topic in d %}
+
+    {% if topic.x is True %}
+    
+    <div class="class col-md-6">
+        <br><br>
+        <div class="post">
+            
+
+            <h6>{{ topic.published_date }}</h6> 
+
+            <a style = "text-decoration:none" href="{% url 'post_detail' pk=topic.pk %}"><h2>{{ topic.title }}</h2></a>
+
+            <p>{{ topic.text|truncatechars:60|linebreaksbr }}</p>
+            
+        </div>
+
+    </div>
+    {% endif %}
+    
+    {% endfor %}
+    
+</div>
+
+
+<br><br><br>
+
+
+<div class="lower_class">
+    
+
+
+
+</div>
+
+
+
+
+<!-- <div class="pagination">
+    <span class="step-links">
+        {% if d.has_previous %}
+            <a href="?page1=1">&laquo; first</a>
+            <a href="?page1={{ d.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ d.number }} of {{ d.paginator.num_pages }}.
+        </span>
+
+        {% if d.has_next %}
+            <a href="?page1={{ d.next_page_number }}">next</a>
+            <a href="?page1={{ d.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
     {% endif %}
 
     {% if bool is False %}

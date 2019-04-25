@@ -1,0 +1,22 @@
+this is a trivial blog app:
+
+
+A . features:
+
+multiple user authentication
+
+can edit details and change password
+
+can write, delete, and edit your own posts
+
+able to view details of your own and other profiles
+
+can view other and your own profile details(except profile picture (read troubles))
+
+B . Troubles
+
+it is only showing default.jpg even after uploading another , seems like the uploaded image is not being in /media/
+
+C. feature to be added
+
+add pagination for searched users, comments(not the facebook plugin but rather your own), like and social media sharing....
