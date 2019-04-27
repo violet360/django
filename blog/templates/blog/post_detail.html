@@ -16,5 +16,18 @@
          {% endif %}
         <h2>{{ post.title }}</h2>
         <p>{{ post.text|linebreaksbr }}</p>
+        <div>
+            <a class='lead'>comments</a>
+            {% for c in comments %}
+                <div class = ''>
+                    {{c.content}}
+                    <br/>
+                    <small>by {{c.user}} {{c.timestamp|timesince}} ago</small>
+                    <br/>
+                </div>
+                    <br><br>
+                </div>
+            {% endfor %}
+        </div>
     
 {% endblock %}

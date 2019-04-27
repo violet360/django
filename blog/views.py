@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from search.models import searchbox
 from search.forms import SearchField
 from django.core.paginator import Paginator
+from django.contrib.contenttypes.models import ContentType
+from comments.models import comments
 
 # def listing(request):
 #     contact_list = Contacts.objects.all()
@@ -84,7 +86,12 @@ def post_detail(request, pk):
         flag = 1
     else:
         flag = None
-    return render(request, 'blog/post_detail.html', {'post': post, 'flag': flag})
+
+    content_type = ContentType.objects.get_for_model(Post)
+    obj_id = post.id
+    r = comments.objects.filter(content_type = content_type, object_id = obj_id )
+    print(obj_id,'  ', content_type)
+    return render(request, 'blog/post_detail.html', {'post': post, 'flag': flag, 'comments':r})
 
 @login_required
 def post_new(request):
