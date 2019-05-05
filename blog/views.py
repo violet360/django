@@ -3,13 +3,14 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from search.models import searchbox
 from search.forms import SearchField
 from django.core.paginator import Paginator
 from django.contrib.contenttypes.models import ContentType
 from comments.models import comments
+from comments.forms import comment_form
 
 # def listing(request):
 #     contact_list = Contacts.objects.all()
@@ -79,6 +80,17 @@ def post_list(request):
             return render(request, 'blog/post_list.html', {})
 
 
+
+
+
+
+
+
+
+
+
+
+
 @login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -87,11 +99,59 @@ def post_detail(request, pk):
     else:
         flag = None
 
-    content_type = ContentType.objects.get_for_model(Post)
-    obj_id = post.id
-    r = comments.objects.filter(content_type = content_type, object_id = obj_id )
-    print(obj_id,'  ', content_type)
-    return render(request, 'blog/post_detail.html', {'post': post, 'flag': flag, 'comments':r})
+
+    init_data  ={
+        "content_type":post.get_content_type(),
+        "object_id":post.id
+    }
+
+    form = comment_form(request.POST or None, initial = init_data)
+
+    if form.is_valid():
+        print(form.cleaned_data)
+        c_type = form.cleaned_data.get("content_type")
+        content_type = ContentType.objects.get(model = c_type)
+        obj_id = form.cleaned_data.get("object_id")
+        content_data = form.cleaned_data.get("content")
+        parent_obj = None
+        try:
+            parent_id = int(request.POST.get("parent_id"))
+        except:
+            parent_id = None
+
+        if parent_id:
+            parent_qs = comments.objects.filter(id = parent_id)
+
+            if parent_qs.exists() and parent_qs.count()==1:
+                parent_obj = parent_qs.first()
+
+
+        new_comment, created = comments.objects.get_or_create(
+                                        user = request.user,
+                                        content_type = content_type,
+                                        object_id = obj_id,
+                                        content = content_data,
+                                        parent = parent_obj,
+                                )
+        
+        return redirect('post_detail', pk=post.pk)
+
+
+        # return HttpResponseRedirect(new_comment.content_object.get_absolute_url)
+
+
+
+
+
+
+
+
+    # content_type = ContentType.objects.get_for_model(Post)
+    # obj_id = post.id
+    # r = comments.objects.filter_by_instance(post)
+    r = post.comments()
+    # print(obj_id,'  ', content_type)
+    return render(request, 'blog/post_detail.html', {'post': post, 'flag': flag, 'comments':r, 'form':form})
 
 @login_required
 def post_new(request):

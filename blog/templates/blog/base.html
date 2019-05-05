@@ -109,9 +109,29 @@ background-color: #794bc4;
 
 }
 
-
-
 </style>
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $(".reply_btn").click(function(event){
+    event.preventDefault();
+    $(this).parent().next(".reply").fadeToggle();
+});
+
+});
+
+</script>
+
+
+
+
+
+
+
 
     
     </head>

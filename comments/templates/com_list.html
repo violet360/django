@@ -3,31 +3,17 @@
 
 
 {% block content %}
-    
-        {% if post.published_date %}
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-            <br>
-        {% endif %}
-        {% if user.is_authenticated %}
-        {% if flag %}
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a class="btn btn-default" href="{% url 'go' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
-         {% endif %}
-         {% endif %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.text|linebreaksbr }}</p>
-        <div>
-            <a class='lead'>comments</a>
 
-            <form method = "POST" action = ".">
-                {% csrf_token %}
-                {{form|crispy}}
-                <input type = "submit" value = "submit" class  ="btn btn-default">
-            </form>
-        </hr>
-            {% for c in comments %}
+
+
+    
+<div class = "col-sm-6 col-sm-offset-3">
+    
+
+
+
+
+
             <blockquote>
                 <p>{{c.content}}</p>
                 <footer>{{ c.user }} | {{ c.timestamp|timesince }} ago | 
@@ -41,8 +27,9 @@
 
 
 
-                    <a class="reply_btn" href="#">reply</a> | <a href="{{ c.get_absolute_url }}">conversation</a></footer>
-                    <div class="reply" style = "display:none;">
+                    </footer>
+                    <hr/>
+                    <div>
                         {% for child_comment in c.children%}
 
                             <blockquote>
@@ -70,7 +57,25 @@
 
 
             </blockquote>
-            {% endfor %}
-        </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+   
     
 {% endblock %}
