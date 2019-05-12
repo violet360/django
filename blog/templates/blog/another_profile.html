@@ -9,7 +9,6 @@
 	        {{ search|crispy }}
 	    </form>
     {% endif %}
-
                                                                                         
     {% if bool %}
     <br>
@@ -19,6 +18,10 @@
     username : {{text}}
     <br>
     email: {{email}}
+    <br>
+
+    <a href="{% url 'msg_view' var=m.pk %}">message</a>
+
     <br>
         <div class="row">
     

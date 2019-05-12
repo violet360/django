@@ -31,14 +31,9 @@ from comments.forms import comment_form
 
 
 
-
-
-
-
-
-
 @login_required
 def post_list(request):
+    global d, m
     if request.method == "POST":
         se = SearchField(request.POST)
         if se.is_valid():
@@ -52,19 +47,34 @@ def post_list(request):
                 b = True
 
             print(b)
+            print(request.user)
+            print(type(x), '    ', type((request.user)))
 
-            if b:
-                m = User.objects.get(username = x)
-                d = Post.objects.filter(author = m).order_by('-published_date')
+            if b is True:
+                if request.user.username == x:
+                    return redirect('post_list')
+
+                else:
+                    m = User.objects.get(username = x)
+                    d = Post.objects.filter(author = m).order_by('-published_date')
+                    return render(request, 'blog/another_profile.html', {'d':d, 'search': se, 'bool': b, 'text':x, 'email':m.email, 'img_url':m.profile.p_image.url, 'm':m})
+
+
+
+            elif not b:
+                return render(request, 'blog/another_profile.html', {'search': se, 'bool': b, 'text':x})
+
 
             # paginator1 = Paginator(d, 6)
             # page1 = request.GET.get('page1')
             # post_list1 = paginator1.get_page(page1)
 
-            return render(request, 'blog/another_profile.html', {'d':d, 'search': se, 'bool': b, 'text':x, 'email':m.email, 'img_url':m.profile.p_image.url})
+            print(x, '   ', request.user)
 
-            if not b:
-                return render(request, 'blog/another_profile.html', {'search': se, 'bool': b, 'text':x})
+            # elif b is True and x is not request.user:
+                
+
+            
 
     else:
         if request.user.is_authenticated:
