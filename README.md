@@ -8,4 +8,4 @@
 * install `pip3 install -r requirements.txt`
 * start the server `$ python3 manage.py runserver`
 
-Setup process might be little different for windows and OSX, follow this [https://tutorial.djangogirls.org/en/django_installation/](link) to explore more
+Setup process might be little different for windows and OSX, follow this [link](https://tutorial.djangogirls.org/en/django_installation/) to explore more
