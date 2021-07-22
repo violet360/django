@@ -1,7 +1,11 @@
 # django
 
+## Setup
 
-Right now I am trying to make a recursive comment section, using genericForeign keys , now you might wonder why generic well that's
-just for the sake of practice, I could have just used foreign keys , for more info you can search for importance of genericforeignkeys over foreignkeys (here's a cool link : https://simpleisbetterthancomplex.com/tutorial/2016/10/13/how-to-use-generic-relations.html)
+* clone the repo `$ https://github.com/violet360/django.git`
+* install virtualenv `$ sudo apt install python3-venv`
+* go to root folder initiate virtualenv `$ python3 -m venv myvenv` and then `$ source myvenv/bin/activate`
+* install `pip3 install -r requirements.txt`
+* start the server `$ python3 manage.py runserver`
 
-I also experimented a bit with pagination ( again just for the sake of learning )
+Setup process might be little different for windows and OSX, follow this [https://tutorial.djangogirls.org/en/django_installation/](link) to explore more
